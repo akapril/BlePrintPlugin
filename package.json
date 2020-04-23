@@ -1,0 +1,25 @@
+{
+  "name": "BlePrintPlugin",
+  "version": "1.0.0",
+  "description": "ble print hm",
+  "cordova": {
+    "id": "BlePrintPlugin",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akapril/BlePrintPlugin.git"
+  },
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "akapril",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akapril/BlePrintPlugin/issues"
+  },
+  "homepage": "https://github.com/akapril/BlePrintPlugin#readme"
+}

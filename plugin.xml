@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="BlePrintPlugin" version="1.0.0" 
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>BlePrintPlugin</name>
+    <js-module name="BlePrintPlugin" src="www/BlePrintPlugin.js">
+        <clobbers target="cordova.plugins.BlePrintPlugin" />
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="BlePrintPlugin">
+                <param name="android-package" value="cn.akapril.ble.BlePrintPlugin" />
+            </feature>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
+        <source-file src="libs/CPCL_V1.07.jar" target-dir="libs"/>
+        <source-file src="src/android/cn/akapril/ble/BlePrintPlugin.java" target-dir="src/cn/akapril/ble/BlePrintPlugin" />
+    </platform>
+</plugin>
