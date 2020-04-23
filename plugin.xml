@@ -14,6 +14,6 @@
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
         <source-file src="libs/CPCL_V1.07.jar" target-dir="libs"/>
-        <source-file src="src/android/cn/akapril/ble/BlePrintPlugin.java" target-dir="src/cn/akapril/ble/BlePrintPlugin" />
+        <source-file src="src/android/cn/akapril/ble/BlePrintPlugin.java" target-dir="src/cn/akapril/ble" />
     </platform>
 </plugin>
