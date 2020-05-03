@@ -1,7 +1,7 @@
 {
   "name": "BlePrintPlugin",
   "version": "1.0.0",
-  "description": "ble print hm",
+  "description": "",
   "cordova": {
     "id": "BlePrintPlugin",
     "platforms": [
