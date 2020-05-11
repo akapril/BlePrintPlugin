@@ -109,12 +109,14 @@ public class BlePrintPlugin extends CordovaPlugin {
 
     }
     private void bleGetStatus(CallbackContext callbackContext) {
+        String statusStr = "";
 
         int getstatus = 0;
         try {
             if(!PrinterHelper.IsOpened())
             {
                 Toast.makeText(cordova.getActivity(), "请链接打印机", Toast.LENGTH_SHORT).show();
+                statusStr = "请链接打印机"
                 return;
             }
             getstatus = PrinterHelper.getstatus();
@@ -122,7 +124,6 @@ public class BlePrintPlugin extends CordovaPlugin {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String statusStr = "";
         switch (getstatus) {
             case 0:
                 statusStr = "就绪";
