@@ -116,7 +116,7 @@ public class BlePrintPlugin extends CordovaPlugin {
             if(!PrinterHelper.IsOpened())
             {
                 Toast.makeText(cordova.getActivity(), "请链接打印机", Toast.LENGTH_SHORT).show();
-                statusStr = "请链接打印机"
+                statusStr = "请链接打印机";
                 return;
             }
             getstatus = PrinterHelper.getstatus();
