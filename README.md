@@ -1,0 +1,23 @@
+#### use
+```JavaScript
+cordova.plugins.BlePrintPlugin.bleGetPermiss("",function(data){
+console.log(data);
+},function(data){
+console.log(data);
+});
+cordova.plugins.BlePrintPlugin.bleConnect("",function(data){
+console.log(data);
+},function(data){
+console.log(data);
+});
+cordova.plugins.BlePrintPlugin.bleGetStatus("",function(data){
+console.log(data);
+},function(data){
+console.log(data);
+});
+cordova.plugins.BlePrintPlugin.blePrint("",function(data){
+console.log(data);
+},function(data){
+console.log(data);
+});
+```
