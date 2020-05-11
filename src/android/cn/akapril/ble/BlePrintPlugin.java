@@ -37,8 +37,7 @@ public class BlePrintPlugin extends CordovaPlugin {
             this.bleConnect(selectedBDAddress, callbackContext);
             return true;
         }else if(action.equals("bleGetPermiss")){
-            String selectedBDAddress = args.getString(0);
-            this.bleGetPermiss(selectedBDAddress, callbackContext);
+            this.bleGetPermiss(callbackContext);
             return true;
         }
         else if(action.equals("bleGetStatus")){
@@ -90,9 +89,8 @@ public class BlePrintPlugin extends CordovaPlugin {
         }
 
     }
-    private void bleGetPermiss(String data, CallbackContext callbackContext){
+    private void bleGetPermiss( CallbackContext callbackContext){
 
-        if (data != null && data.length() > 0) {
             try {
                 PrinterHelper.PortClose();
                 Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -102,10 +100,6 @@ public class BlePrintPlugin extends CordovaPlugin {
                 e.printStackTrace();
             }
             callbackContext.success(); // Thread-safe.
-        }else{
-            callbackContext.error("Expected one non-empty string argument.");
-
-        }
 
     }
     private void bleGetStatus(CallbackContext callbackContext) {
