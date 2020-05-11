@@ -109,8 +109,8 @@ public class BlePrintPlugin extends CordovaPlugin {
         try {
             if(!PrinterHelper.IsOpened())
             {
-                Toast.makeText(cordova.getActivity(), "请链接打印机", Toast.LENGTH_SHORT).show();
-                statusStr = "请链接打印机";
+                statusStr = "noconnected";
+                callbackContext.success(statusStr);
                 return;
             }
             getstatus = PrinterHelper.getstatus();
@@ -120,16 +120,16 @@ public class BlePrintPlugin extends CordovaPlugin {
         }
         switch (getstatus) {
             case 0:
-                statusStr = "就绪";
+                statusStr = "ready";
                 break;
             case 2:
-                statusStr = "缺纸";
+                statusStr = "nopage";
                 break;
             case 6:
-                statusStr = "开盖";
+                statusStr = "open";
                 break;
             default:
-                statusStr = "错误";
+                statusStr = "error";
                 break;
         }
         callbackContext.success(statusStr); // Thread-safe.
