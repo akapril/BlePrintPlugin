@@ -15,5 +15,7 @@
         <config-file parent="/*" target="AndroidManifest.xml"></config-file>
         <source-file src="libs/CPCL_V1.07.jar" target-dir="libs"/>
         <source-file src="src/android/cn/akapril/ble/BlePrintPlugin.java" target-dir="src/cn/akapril/ble" />
+        <framework src="src/android/cn/akapril/ble/blePrintPlugin.gradle" custom="true" type="gradleReference" />
+        <framework src="com.tbruyelle.rxpermissions:rxpermissions:0.9.3" />
     </platform>
 </plugin>
