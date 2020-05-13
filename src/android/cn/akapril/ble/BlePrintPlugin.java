@@ -3,22 +3,17 @@ package cn.akapril.ble;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
 
-import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cpcl.PrinterHelper;
-import rx.functions.Action1;
 
-import static com.google.zxing.client.android.Intents.Scan.RESULT;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -103,34 +98,12 @@ public class BlePrintPlugin extends CordovaPlugin {
 
     }
     private void bleGetStatus(CallbackContext callbackContext) {
-        String statusStr = "";
+        String statusStr = "false";
 
-        int getstatus = 0;
-        try {
-            if(!PrinterHelper.IsOpened())
-            {
-                statusStr = "noconnected";
-                callbackContext.success(statusStr);
-                return;
-            }
-            getstatus = PrinterHelper.getstatus();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        switch (getstatus) {
-            case 0:
-                statusStr = "ready";
-                break;
-            case 2:
-                statusStr = "nopage";
-                break;
-            case 6:
-                statusStr = "open";
-                break;
-            default:
-                statusStr = "error";
-                break;
+        if (PrinterHelper.IsOpened()){
+            statusStr = "true";
+        }else{
+            statusStr = "false";
         }
         callbackContext.success(statusStr); // Thread-safe.
     }
