@@ -43,43 +43,59 @@ public class BlePrintPlugin extends CordovaPlugin {
     }
 
     private void blePrint(JSONObject params, CallbackContext callbackContext) {
-        if (params != null ) {
-            cordova.getThreadPool().execute(new Runnable() {
-                public void run() {
-                    try {
-                        PrinterHelper.printAreaSize(params.getString("offset"),
-                                params.getString("horizontal"),params.getString("vertical"),
-                                params.getString("height"),params.getString("qty"));
-                        PrinterHelper.Align(params.getString("align"));
-                        PrinterHelper.Barcode(params.getString("command"), params.getString("type"),
-                                params.getString("width"),params.getString("ratio"),
-                                params.getString("vHeight"), params.getString("vX"),
-                                params.getString("vY"),params.getBoolean("undertext"),
-                                params.getString("number"),params.getString("size"),
-                                params.getString("tOffset"),params.getString("data"));
-                        PrinterHelper.Form();
-                        PrinterHelper.Print();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            if (params != null) {
+                cordova.getThreadPool().execute(new Runnable() {
+                    public void run() {
+                        String statusStr = "false";
+                        try {
 
-                    callbackContext.success(); // Thread-safe.
-                }
-            });
-        } else {
-            callbackContext.error("Expected one non-empty string argument.");
-        }
+                            PrinterHelper.printAreaSize(params.getString("offset"),
+                                    params.getString("horizontal"), params.getString("vertical"),
+                                    params.getString("height"), params.getString("qty"));
+                            PrinterHelper.Align(params.getString("align"));
+                            PrinterHelper.Barcode(params.getString("command"), params.getString("type"),
+                                    params.getString("width"), params.getString("ratio"),
+                                    params.getString("vHeight"), params.getString("vX"),
+                                    params.getString("vY"), params.getBoolean("undertext"),
+                                    params.getString("number"), params.getString("size"),
+                                    params.getString("tOffset"), params.getString("data"));
+                            PrinterHelper.Form();
+                            PrinterHelper.Print();
+                            statusStr = "true";
+                        } catch (Exception e) {
+                            statusStr = "false";
+                            callbackContext.success(statusStr);
+                            e.printStackTrace();
+                        }
+
+                        callbackContext.success(statusStr); // Thread-safe.
+                    }
+                });
+            } else {
+                callbackContext.error("Expected one non-empty string argument.");
+            }
+
     }
     private void bleConnect(String selectedBDAddress, CallbackContext callbackContext) {
+        String statusStr = "false";
         if (selectedBDAddress != null && selectedBDAddress.length() > 0) {
             try {
-                PrinterHelper.PortOpenBT(selectedBDAddress);
+
+                int cstatus = PrinterHelper.PortOpenBT(selectedBDAddress);
+                if(cstatus==0){
+                    statusStr = "true";
+                }else{
+                    statusStr = "false";
+                }
             } catch (Exception e) {
+                statusStr = "false";
+                callbackContext.success(statusStr);
                 e.printStackTrace();
             }
-            callbackContext.success(); // Thread-safe.
+            callbackContext.success(statusStr); // Thread-safe.
         }else{
-            callbackContext.error("Expected one non-empty string argument.");
+            statusStr = "false";
+            callbackContext.success(statusStr);
 
         }
 
@@ -99,12 +115,20 @@ public class BlePrintPlugin extends CordovaPlugin {
     }
     private void bleGetStatus(CallbackContext callbackContext) {
         String statusStr = "false";
-
-        if (PrinterHelper.IsOpened()){
-            statusStr = "true";
-        }else{
+        try{
+            int getstatus = PrinterHelper.getstatus();
+            Log.d("params", String.valueOf(getstatus));
+            if (PrinterHelper.IsOpened()){
+                statusStr = "true";
+            }else{
+                statusStr = "false";
+            }
+        }catch (Exception e){
             statusStr = "false";
+            callbackContext.success(statusStr);
+            e.printStackTrace();
         }
+
         callbackContext.success(statusStr); // Thread-safe.
     }
 }
