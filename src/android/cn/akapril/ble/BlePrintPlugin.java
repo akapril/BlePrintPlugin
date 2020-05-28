@@ -77,28 +77,28 @@ public class BlePrintPlugin extends CordovaPlugin {
 
     }
     private void bleConnect(String selectedBDAddress, CallbackContext callbackContext) {
-        String statusStr = "false";
         if (selectedBDAddress != null && selectedBDAddress.length() > 0) {
-            try {
-
-                int cstatus = PrinterHelper.PortOpenBT(selectedBDAddress);
-                if(cstatus==0){
-                    statusStr = "true";
-                }else{
-                    statusStr = "false";
-                }
-            } catch (Exception e) {
-                statusStr = "false";
-                callbackContext.success(statusStr);
-                e.printStackTrace();
-            }
-            callbackContext.success(statusStr); // Thread-safe.
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    String statusStr = "false";
+                    try {
+                        int cstatus = PrinterHelper.PortOpenBT(selectedBDAddress);
+                        if (cstatus == 0) {
+                            statusStr = "true";
+                        } else {
+                            statusStr = "false";
+                        }
+                    } catch (Exception e) {
+                        statusStr = "false";
+                        callbackContext.success(statusStr);
+                        e.printStackTrace();
+                    }
+                    callbackContext.success(statusStr); // Thread-safe.
+                }});
         }else{
-            statusStr = "false";
+            String statusStr = "false";
             callbackContext.success(statusStr);
-
         }
-
     }
     private void bleGetPermiss( CallbackContext callbackContext){
 
